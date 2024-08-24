@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botones con Horarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+        }
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
+        .button {
+            padding: 15px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .config-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .config-container label {
+            margin-right: 10px;
+        }
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .day-selector button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            cursor: pointer;
+        }
+        .day-selector button.selected {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        .config-container {
+            display: none; /* Ocultar la sección de configuración por defecto */
+        }
+        .show-config-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .show-config-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="show-config-button" onclick="toggleConfig()">Configurar Horarios</button>
+
+    <div class="section config-container">
+        <h2>Configura los Horarios de los Botones</h2>
+        <div>
+            <label for="uni-start">Estoy en la Universidad: Inicio</label>
+            <input type="time" id="uni-start">
+            <label for="uni-end">Fin</label>
+            <input type="time" id="uni-end">
+            <div class="day-selector" id="uni-days">
+                <button value="lunes">L</button>
+                <button value="martes">M</button>
+                <button value="miércoles">X</button>
+                <button value="jueves">J</button>
+                <button value="viernes">V</button>
+                <button value="sábado">S</button>
+                <button value="domingo">D</button>
+            </div>
+        </div>
+        <div>
+            <label for="casa-start">Estoy en Casa: Inicio</label>
+            <input type="time" id="casa-start">
+            <label for="casa-end">Fin</label>
+            <input type="time" id="casa-end">
+            <div class="day-selector" id="casa-days">
+                <button value="lunes">L</button>
+                <button value="martes">M</button>
+                <button value="miércoles">X</button>
+                <button value="jueves">J</button>
+                <button value="viernes">V</button>
+                <button value="sábado">S</button>
+                <button value="domingo">D</button>
+            </div>
+        </div>
+        <div>
+            <label for="estudio-start">Estoy Estudiando: Inicio</label>
+            <input type="time" id="estudio-start">
+            <label for="estudio-end">Fin</label>
+            <input type="time" id="estudio-end">
+            <div class="day-selector" id="estudio-days">
+                <button value="lunes">L</button>
+                <button value="martes">M</button>
+                <button value="miércoles">X</button>
+                <button value="jueves">J</button>
+                <button value="viernes">V</button>
+                <button value="sábado">S</button>
+                <button value="domingo">D</button>
+            </div>
+        </div>
+        <div>
+            <label for="clase-start">Estoy en Clase: Inicio</label>
+            <input type="time" id="clase-start">
+            <label for="clase-end">Fin</label>
+            <input type="time" id="clase-end">
+            <div class="day-selector" id="clase-days">
+                <button value="lunes">L</button>
+                <button value="martes">M</button>
+                <button value="miércoles">X</button>
+                <button value="jueves">J</button>
+                <button value="viernes">V</button>
+                <button value="sábado">S</button>
+                <button value="domingo">D</button>
+            </div>
+        </div>
+        <button onclick="configurarBotones()">Aplicar Configuración</button>
+    </div>
+
+    <div class="section button-container">
+        <a href="https://unasino.github.io/miNave60/#" target="_blank"><div class="button" id="uni-btn">Estoy en la universidad?</div></a>
+        <a href="https://www.notion.so/UNIVERSIDAD-498cb19ec7c34e6d9d2cff72637e39e7" target="_blank"><div class="button" id="casa-btn">Estoy en mi casa?</div></a>
+        <a href="https://www.notion.so/UNIVERSIDAD-498cb19ec7c34e6d9d2cff72637e39e7" target="_blank"><div class="button" id="estudio-btn">Estoy estudiando?</div></a>
+        <a href="https://www.notion.so/UNIVERSIDAD-498cb19ec7c34e6d9d2cff72637e39e7" target="_blank"><div class="button" id="clase-btn">Estoy en clases?</div></a>
+    </div>
+</div>
+
+<script>
+    function configurarBotones() {
+        const horarios = [
+            {
+                btnId: 'uni-btn',
+                start: document.getElementById('uni-start').value,
+                end: document.getElementById('uni-end').value,
+                days: getSelectedDays('uni-days')
+            },
+            {
+                btnId: 'casa-btn',
+                start: document.getElementById('casa-start').value,
+                end: document.getElementById('casa-end').value,
+                days: getSelectedDays('casa-days')
+            },
+            {
+                btnId: 'estudio-btn',
+                start: document.getElementById('estudio-start').value,
+                end: document.getElementById('estudio-end').value,
+                days: getSelectedDays('estudio-days')
+            },
+            {
+                btnId: 'clase-btn',
+                start: document.getElementById('clase-start').value,
+                end: document.getElementById('clase-end').value,
+                days: getSelectedDays('clase-days')
+            }
+        ];
+
+        horarios.forEach(horario => {
+            localStorage.setItem(horario.btnId + '-start', horario.start);
+            localStorage.setItem(horario.btnId + '-end', horario.end);
+            localStorage.setItem(horario.btnId + '-days', JSON.stringify(horario.days));
+        });
+
+        mostrarBotones();
+    }
+
+    function getSelectedDays(containerId) {
+        return Array.from(document.getElementById(containerId).children)
+                    .filter(button => button.classList.contains('selected'))
+                    .map(button => button.value);
+    }
+
+    function mostrarBotones() {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const currentDay = now.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase();
+
+        const horarios = [
+            {
+                btnId: 'uni-btn',
+                start: localStorage.getItem('uni-btn-start'),
+                end: localStorage.getItem('uni-btn-end'),
+                days: JSON.parse(localStorage.getItem('uni-btn-days'))
+            },
+            {
+                btnId: 'casa-btn',
+                start: localStorage.getItem('casa-btn-start'),
+                end: localStorage.getItem('casa-btn-end'),
+                days: JSON.parse(localStorage.getItem('casa-btn-days'))
+            },
+            {
+                btnId: 'estudio-btn',
+                start: localStorage.getItem('estudio-btn-start'),
+                end: localStorage.getItem('estudio-btn-end'),
+                days: JSON.parse(localStorage.getItem('estudio-btn-days'))
+            },
+            {
+                btnId: 'clase-btn',
+                start: localStorage.getItem('clase-btn-start'),
+                end: localStorage.getItem('clase-btn-end'),
+                days: JSON.parse(localStorage.getItem('clase-btn-days'))
+            }
+        ];
+
+        horarios.forEach(horario => {
+            const startTime = parseInt(horario.start.split(':')[0]) * 60 + parseInt(horario.start.split(':')[1]);
+            const endTime = parseInt(horario.end.split(':')[0]) * 60 + parseInt(horario.end.split(':')[1]);
+
+            const button = document.getElementById(horario.btnId);
+            if (currentTime >= startTime && currentTime <= endTime && horario.days.includes(currentDay)) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
+    }
+
+    function toggleDaySelection(button) {
+        button.classList.toggle('selected');
+    }
+
+    function setSelectedDays(containerId, days) {
+        const container = document.getElementById(containerId);
+        for (const button of container.children) {
+            if (days.includes(button.value)) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        }
+    }
+
+    function toggleConfig() {
+        const configSection = document.querySelector('.config-container');
+        configSection.style.display = configSection.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.day-selector button').forEach(button => {
+            button.addEventListener('click', () => toggleDaySelection(button));
+        });
+
+        document.getElementById('uni-start').value = localStorage.getItem('uni-btn-start') || '';
+        document.getElementById('uni-end').value = localStorage.getItem('uni-btn-end') || '';
+        document.getElementById('casa-start').value = localStorage.getItem('casa-btn-start') || '';
+        document.getElementById('casa-end').value = localStorage.getItem('casa-btn-end') || '';
+        document.getElementById('estudio-start').value = localStorage.getItem('estudio-btn-start') || '';
+        document.getElementById('estudio-end').value = localStorage.getItem('estudio-btn-end') || '';
+        document.getElementById('clase-start').value = localStorage.getItem('clase-btn-start') || '';
+        document.getElementById('clase-end').value = localStorage.getItem('clase-btn-end') || '';
+
+        setSelectedDays('uni-days', JSON.parse(localStorage.getItem('uni-btn-days')) || []);
+        setSelectedDays('casa-days', JSON.parse(localStorage.getItem('casa-btn-days')) || []);
+        setSelectedDays('estudio-days', JSON.parse(localStorage.getItem('estudio-btn-days')) || []);
+        setSelectedDays('clase-days', JSON.parse(localStorage.getItem('clase-btn-days')) || []);
+
+        mostrarBotones();
+    });
+</script>
+
+</body>
+</html>
